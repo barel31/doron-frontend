@@ -1,24 +1,23 @@
 import { ElPhoneAlt } from '@/lib/icons';
-import Theme from './Theme';
 import { cn } from '@/lib/utils';
 
-interface Contact {
+type Contact = {
   facebook: string;
   linkedin: string;
   phone: string;
-}
+};
 
-interface NavbarContactProps {
+type NavbarContactProps = {
   contact: Contact;
   isMobile: boolean;
   show: boolean;
-}
+};
 
 const NavbarContact = ({ contact, isMobile, show }: NavbarContactProps) => {
   return (
     <div
       className={cn(
-        'navbar-contacts flex flex-col md:flex-row gap-2 justify-around',
+        'navbar-contacts flex flex-col md:flex-row gap-4 justify-around',
         {
           invisible: !((isMobile && show) || !isMobile),
         }
@@ -37,7 +36,6 @@ const NavbarContact = ({ contact, isMobile, show }: NavbarContactProps) => {
           {contact.phone}
         </span>
       </a>
-      <Theme show={show} isMobile={isMobile} />
     </div>
   );
 };

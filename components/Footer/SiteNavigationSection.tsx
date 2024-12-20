@@ -26,7 +26,7 @@ const DropdownItem = ({ route }: { route: Route }) => {
   return (
     <li className="flex flex-col items-start">
       {hasChildren ? (
-        <span className="font-semibold text-gray-600">{name}:</span>
+        <span className="font-semibold text-gray-600 dark:text-gray-200">{name}:</span>
       ) : (
         <Link
           href={slug.current}

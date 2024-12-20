@@ -1,19 +1,22 @@
+'use client';
+
 import { IonIosSunny, RiMoonFill } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
 
-type Props = { show: boolean; isMobile: boolean; className?: string };
+type ThemeButtonProps = { className?: string };
 
-function Theme({ show, isMobile, className }: Props) {
+function ThemeButton({ className }: ThemeButtonProps) {
   const { theme, setTheme } = useTheme();
 
   const handleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
   return (
     <div
-      className={cn('theme-toggle self-center z-10', className, {
-        visible: show || !isMobile,
-      })}>
+      className={cn(
+        'theme-toggle self-center z-10 w-full md:w-1/3 space-y-6 text-center',
+        className
+      )}>
       <input
         title="החלף ערכת צבעים"
         type="checkbox"
@@ -32,4 +35,4 @@ function Theme({ show, isMobile, className }: Props) {
   );
 }
 
-export default Theme;
+export default ThemeButton;
