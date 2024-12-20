@@ -19,7 +19,7 @@ const CarouselContent = ({
   const imageIndex = ((page % images.length) + images.length) % images.length;
 
   return (
-    <div className="carousel-content relative flex justify-center items-center w-full overflow-hidden min-h-[400px]">
+    <div className="carousel-content relative flex justify-center items-center w-full overflow-hidden">
       <AnimatePresence initial={false} custom={direction}>
         <Link
           href={images[imageIndex]}
@@ -40,7 +40,7 @@ const CarouselContent = ({
             onDragEnd={(_, { offset, velocity }) =>
               handleDragEnd(offset, velocity, paginate)
             }
-            className="w-full object-cover rounded-lg h-full"
+            className="w-full object-cover rounded-lg h-[500px] md:h-[650px]"
             alt={`Carousel image ${imageIndex + 1}`}
           />
         </Link>

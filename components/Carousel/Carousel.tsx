@@ -23,7 +23,7 @@ const Carousel = ({ images }: CarouselProps) => {
   }
 
   return (
-    <div className="carousel flex flex-col items-center max-w-md mx-auto my-24 space-y-4">
+    <div className="carousel flex flex-col items-center max-w-md mx-auto mt-14 space-y-4 max-h-[750px]">
       <CarouselContent images={images} page={page} direction={direction} paginate={paginate} />
       <CarouselControls paginate={paginate} />
     </div>
