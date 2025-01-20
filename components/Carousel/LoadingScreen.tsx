@@ -8,7 +8,7 @@ type LoadingScreenProps = {
 const LoadingScreen = ({
   loadedCount,
   totalCount,
-  loadingMessage = 'Loading Images',
+  loadingMessage = 'טוען תמונות',
   spinnerSize = 64,
 }: LoadingScreenProps) => {
   const spinnerStyle = {
@@ -18,7 +18,7 @@ const LoadingScreen = ({
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-50">
+    <div className="flex justify-center items-center h-screen">
       <div className="flex flex-col items-center space-y-4">
         <div
           className="border-blue-500 border-t-transparent border-solid rounded-full animate-spin"

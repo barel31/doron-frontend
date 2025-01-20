@@ -1,30 +1,35 @@
+'use client';
+
 import { handleDragEnd } from '@/lib/utils';
 import { imageTransition, imageVariants } from '@/lib/variants';
 import { motion, AnimatePresence } from 'motion/react';
-import Link from 'next/link';
+import { useState } from 'react';
+import ImageView from '../ImageView';
 
-type CarouselContentProps = {
+type Props = {
   images: string[];
   page: number;
   direction: number;
   paginate: (newDirection: number) => void;
 };
 
-const CarouselContent = ({
-  images,
-  page,
-  direction,
-  paginate,
-}: CarouselContentProps) => {
+const CarouselContent = ({ images, page, direction, paginate }: Props) => {
   const imageIndex = ((page % images.length) + images.length) % images.length;
+
+  const [isImageViewOpen, setIsImageViewOpen] = useState(false);
+
+  const handleImageClick = () => {
+    setIsImageViewOpen(true);
+  };
+
+  const handleCloseImageView = () => {
+    setIsImageViewOpen(false);
+  };
 
   return (
     <div className="carousel-content relative flex justify-center items-center w-full overflow-hidden">
       <AnimatePresence initial={false} custom={direction}>
-        <Link
-          href={images[imageIndex]}
-          target="_blank"
-          rel="noopener noreferrer">
+        <button onClick={handleImageClick} className="cursor-zoom-in">
           <motion.img
             key={page}
             src={images[imageIndex]}
@@ -37,14 +42,18 @@ const CarouselContent = ({
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.8}
-            onDragEnd={(_, { offset, velocity }) =>
-              handleDragEnd(offset, velocity, paginate)
-            }
+            onDragEnd={(_, { offset }) => paginate(handleDragEnd(offset))}
             className="w-full object-cover rounded-lg h-[500px] md:h-[650px]"
             alt={`Carousel image ${imageIndex + 1}`}
           />
-        </Link>
+        </button>
       </AnimatePresence>
+      {isImageViewOpen && (
+        <ImageView
+          imageSrc={images[imageIndex]}
+          onClose={handleCloseImageView}
+        />
+      )}
     </div>
   );
 };

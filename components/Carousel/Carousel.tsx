@@ -12,15 +12,15 @@ type CarouselProps = {
 
 const Carousel = ({ images }: CarouselProps) => {
   const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
-  const { allImagesLoaded, loadedCount } = useImagePreloader(images);
+  // const { allImagesLoaded, loadedCount } = useImagePreloader(images);
 
   const paginate = useCallback((newDirection: number) => {
     setPage([page + newDirection, newDirection]);
   }, [page]);
 
-  if (!allImagesLoaded) {
-    return <LoadingScreen loadedCount={loadedCount} totalCount={images.length} />;
-  }
+  // if (!allImagesLoaded) {
+  //   return <LoadingScreen loadedCount={loadedCount} totalCount={images.length} />;
+  // }
 
   return (
     <div className="carousel flex flex-col items-center max-w-md mx-auto mt-14 space-y-4 max-h-[750px]">
