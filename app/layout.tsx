@@ -10,6 +10,7 @@ import Accessibility2 from '@/components/Accessibility2';
 import { Rubik } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -58,6 +59,7 @@ export default async function RootLayout({
 
         <Accessibility2 />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
