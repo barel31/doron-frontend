@@ -45,7 +45,7 @@ function AccordionItem({ qa, index }: { qa: QAndA; index: number }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: open ? 1 : 0 }}
           transition={{ duration: 0.4 }}
-          className="dark:text-slate-300 bg-gradient-to-r from-slate-300 to-slate-200 dark:bg-gradient-to-r dark:from-slate-700 dark:to-slate-800 px-5 py-4">
+          className="dark:text-slate-300 bg-gradient-to-r from-slate-300 to-slate-200 dark:from-slate-700 dark:to-slate-800 px-5 py-4">
           <p>{qa.answer}</p>
         </motion.div>
       </motion.div>
