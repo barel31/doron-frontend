@@ -1,6 +1,5 @@
 import '@/styles/globals.css';
 
-
 import { type Metadata } from 'next';
 import { getContactInfo, getRoutes } from '@/lib/client';
 import Navbar from '@/components/Navbar';
@@ -10,6 +9,7 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import Accessibility2 from '@/components/Accessibility2';
 import { Rubik } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -57,6 +57,7 @@ export default async function RootLayout({
         </ThemeProvider>
 
         <Accessibility2 />
+        <SpeedInsights />
       </body>
     </html>
   );
