@@ -17,16 +17,7 @@ export const formatDate = (dateString: string) => {
   });
 };
 
-export const calculateSwipePower = (offset: number, velocity: number) => 
-  Math.abs(offset) * velocity;
-
-export const handleDragEnd = (
-  offset: { x: number }, 
-  velocity: { x: number }, 
-  paginate: (newDirection: number) => void
-) => {
-  const swipeConfidenceThreshold = 10000;
-  const swipePower = calculateSwipePower(offset.x, velocity.x);
-  if (swipePower < -swipeConfidenceThreshold) paginate(1);
-  if (swipePower > swipeConfidenceThreshold) paginate(-1);
+export const handleDragEnd = (offset: { x: number; y: number }) => {
+  const swipe = Math.abs(offset.x) > 100 ? (offset.x > 0 ? -1 : 1) : 0;
+  return swipe;
 };
