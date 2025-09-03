@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useImagePreloader } from '@/hooks/useImagePreloader';
-import LoadingScreen from './LoadingScreen';
+// import { useImagePreloader } from '@/hooks/useImagePreloader';
+// import LoadingScreen from './LoadingScreen';
 import CarouselContent from './CarouselContent';
 import CarouselControls from './CarouselControls';
 
