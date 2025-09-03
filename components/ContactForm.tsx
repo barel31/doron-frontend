@@ -4,6 +4,7 @@ import { ContactFormAction } from '@/app/actions';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Link from 'next/link';
 
 function ContactForm({
   contact,
@@ -57,6 +58,12 @@ function ContactForm({
               </span>{' '}
               או השאירו פרטים:
             </a>
+            <p className="m-0 text-sm text-gray-500 dark:text-gray-400 text-center lg:text-right">
+              הפרטים ישמשו לצורך מענה בלבד —{' '}
+              <Link href="privacy" className="hover:underline">
+                לקריאה נוספת
+              </Link>
+            </p>
           </div>
         )}
 
