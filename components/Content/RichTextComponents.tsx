@@ -26,12 +26,12 @@ const components: PortableTextComponents = {
     },
   },
   block: {
-    normal: ({ children }: any) => {
-      return children && children.length === 1 && children.at(0) === '' ? (
-        <br />
-      ) : (
-        <p className="text-lg leading-relaxed my-1">{children}</p>
-      );
+    normal: ({ children }) => {
+      // `children` can be a ReactNode or an array; guard accordingly
+      if (Array.isArray(children) && children.length === 1 && children[0] === '') {
+        return <br />;
+      }
+      return <p className="text-lg leading-relaxed my-1">{children}</p>;
     },
     h1: ({ children }) => (
       <h1 className="text-[clamp(2.5rem,5vw,4rem)] font-bold tracking-tight mt-8 mb-4">

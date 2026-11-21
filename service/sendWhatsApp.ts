@@ -39,13 +39,14 @@ ${message ? `📝 *הודעה:* ${message}` : ''}
     const response = await axios.post(url, requestBody);
     
     return { success: true, info: response.data };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Failed to send WhatsApp message:', error);
 
-    if (error.response) {
+    // axios errors have a `.response` property; narrow accordingly
+    if (axios.isAxiosError(error) && error.response) {
       console.error('Response data:', error.response.data);
     }
 
-    return { success: false, err: error as Error };
+    return { success: false, err: error instanceof Error ? error : new Error('Unknown error') };
   }
 }

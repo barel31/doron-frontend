@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer/Footer';
 import ThemeProvider from '@/components/ThemeProvider';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
-import Accessibility2 from '@/components/Accessibility2';
+import Accessibility from '@/components/Accessibility';
 import { Rubik } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -32,7 +32,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   Modal: React.ReactNode;
 }) {
-  const [contactInfo, routes] = await Promise.all([getContactInfo, getRoutes]);
+  const [contactInfo, routes] = await Promise.all([getContactInfo(), getRoutes()]);
 
   if (routes[0].name !== 'בית') {
     const homeIndex = routes.findIndex(route => route.name === 'בית');
@@ -43,7 +43,7 @@ export default async function RootLayout({
     <html lang="he" dir="rtl" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
-        <link rel="canonical" href={process.env.NEXT_PUBLIC_PRODUCTION_URL} />
+        {/* canonical links are generated via metadataGenerator */}
       </head>
       <body className={cn('bg-slate-50 dark:bg-slate-800', rubik.className)}>
         <ThemeProvider>
@@ -57,9 +57,31 @@ export default async function RootLayout({
           <Footer routes={routes} contact={contactInfo} />
         </ThemeProvider>
 
-        <Accessibility2 />
+        <Accessibility />
         <SpeedInsights />
         <Analytics />
+
+        {/* Structured data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'LegalService',
+              name: 'עו"ד דורון חדד',
+              telephone: contactInfo.phone,
+              email: contactInfo.email,
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: contactInfo.address,
+                addressLocality: 'בני ברק',
+                addressCountry: 'IL',
+              },
+              url: process.env.NEXT_PUBLIC_PRODUCTION_URL,
+              sameAs: [contactInfo.facebook, contactInfo.linkedin].filter(Boolean),
+            }),
+          }}
+        />
       </body>
     </html>
   );

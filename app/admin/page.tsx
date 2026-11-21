@@ -4,26 +4,28 @@ import { IconErrorPajamas } from '@/lib/icons';
 import { formatDate } from '@/lib/utils';
 
 async function admin() {
-  const routes = await getRoutes;
+  const routes = await getRoutes();
 
   const renderRouteList = () => {
-    return routes.map(route => {
-      const lastUpdated = route._updatedAt
-        ? formatDate(route._updatedAt)
-        : 'Unknown';
+    return (
+      <ul dir="ltr">
+        {routes.map(route => {
+          const lastUpdated = route._updatedAt
+            ? formatDate(route._updatedAt)
+            : 'Unknown';
 
-      const routeName =
-        route.slug.current === '/' ? 'Home' : route.slug.current;
+          const routeName =
+            route.slug.current === '/' ? 'Home' : route.slug.current;
 
-      return (
-        <ul dir="ltr">
-          <li key={route.slug.current} className="w-full m-auto">
-            <strong>{routeName}: </strong>
-            Last updated on {lastUpdated}
-          </li>
-        </ul>
-      );
-    });
+          return (
+            <li key={route.slug.current} className="w-full m-auto">
+              <strong>{routeName}: </strong>
+              Last updated on {lastUpdated}
+            </li>
+          );
+        })}
+      </ul>
+    );
   };
 
   return (

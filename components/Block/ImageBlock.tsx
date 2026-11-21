@@ -2,8 +2,12 @@ import Image from 'next/image';
 import { urlFor } from '@/lib/client';
 import { type PortableTextTypeComponentProps } from 'next-sanity';
 
+// the block can vary significantly depending on how Sanity returns it,
+// so keep the type loose and let the runtime code handle it.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function PortableImageBlock({ value }: PortableTextTypeComponentProps<any>) {
-  const url = urlFor(value.asset).dpr(2).url();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const url = urlFor((value as any).asset).dpr(2).url();
 
   return (
     <a href={url} target="_blank" rel="noopener noreferrer">

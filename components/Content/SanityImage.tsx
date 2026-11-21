@@ -1,20 +1,16 @@
 import { urlFor } from '@/lib/client';
 import { cn } from '@/lib/utils';
-import { type SanityImageSource } from '@sanity/image-url/lib/types/types';
+import { type SanityImageSource } from '@sanity/image-url';
 import Image from 'next/image';
 
 function SanityImage({
   src,
-  width = 2000,
-  height = 2000,
   alt,
   className,
   priority = false,
 }: {
   src: SanityImageSource;
   alt: string;
-  width?: number;
-  height?: number;
   className?: string;
   priority?: boolean;
 }) {

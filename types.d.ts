@@ -52,11 +52,15 @@ interface ContactInfo extends SanityData {
 }
 
 interface Topography {
-  children: Array<{ text: string }>;
   _type: string;
-  style: string;
   _key: string;
-  markDefs: Array;
+  style?: string;
+  children: Array<{
+    _key?: string;
+    text: string;
+    marks?: string[];
+  }>;
+  markDefs?: Array<Record<string, unknown>>;
 }
 
 interface QAndA {
@@ -80,7 +84,8 @@ interface MailResponse {
 
 interface WhatsAppResponse {
   success: boolean;
-  info?: any;
+  // axios response body is unknown to us here; avoid `any`
+  info?: unknown;
   err?: Error;
 }
 

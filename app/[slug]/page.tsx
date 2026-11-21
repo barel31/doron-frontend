@@ -1,4 +1,5 @@
 import { getContactInfo, getRoute, getRoutes } from '@/lib/client';
+import { notFound } from 'next/navigation';
 import Content from '@/components/Content';
 import { type ResolvingMetadata, type Metadata } from 'next';
 import metadataGenerator from '@/service/metadataGenerator';
@@ -18,7 +19,12 @@ export const generateMetadata = async (
 export default async function Page({ params }: Props) {
   const { slug } = await params;
 
-  const [route, contact] = await Promise.all([getRoute(slug), getContactInfo]);
+  const [route, contact] = await Promise.all([getRoute(slug), getContactInfo()]);
+
+  if (!route) {
+    // If no route exists for the slug, render the Next.js 404 page
+    notFound();
+  }
 
   return (
     <div
@@ -29,7 +35,7 @@ export default async function Page({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const routes = await getRoutes;
+  const routes = await getRoutes();
 
   return routes
     .filter(route => route.slug.current !== '/')

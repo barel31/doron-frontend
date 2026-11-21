@@ -1,7 +1,10 @@
 import { type PortableTextTypeComponentProps } from 'next-sanity';
 
+// `value` may come from various block types so keep it loose.  We'll
+// validate at runtime.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function YouTubeBlock({ value }: PortableTextTypeComponentProps<any>) {
-  const { url } = value;
+  const { url } = value as { url?: string };
   if (!url) return null;
 
   let videoId;

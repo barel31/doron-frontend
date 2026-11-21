@@ -1,4 +1,4 @@
-import { getRoute } from '@/lib/client';
+import { getRoute, urlFor } from '@/lib/client';
 import { type ResolvingMetadata, type Metadata } from 'next';
 
 export default async function generateMetadata(
@@ -27,6 +27,7 @@ export default async function generateMetadata(
       description: notFoundDescription,
       keywords: fallbackKeywords,
       url: `/not-found/${slug}`,
+      robots: { index: false, follow: false },
     });
   }
 
@@ -51,6 +52,7 @@ export default async function generateMetadata(
     description: `${routeDescription} | ${fallbackDescription}`,
     keywords: routeKeywords,
     url: `/${slug}`,
+    image: route.image ? urlFor(route.image).width(1200).height(630).url() : undefined,
   });
 }
 
@@ -62,13 +64,17 @@ function buildMetadata({
   description,
   keywords,
   url,
+  image,
+  robots,
 }: {
   title: string;
   description: string;
   keywords: string;
   url: string;
+  image?: string;
+  robots?: { index: boolean; follow: boolean };
 }): Metadata {
-  return {
+  const metadata: Metadata = {
     title,
     description,
     keywords,
@@ -77,11 +83,19 @@ function buildMetadata({
       description,
       url,
       siteName: 'עו"ד דורון חדד',
+      images: image ? [{ url: image }] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: image ? [image] : undefined,
     },
+    alternates: {
+      canonical: process.env.NEXT_PUBLIC_PRODUCTION_URL + url,
+    },
+    robots: robots ?? { index: true, follow: true },
   };
+
+  return metadata;
 }

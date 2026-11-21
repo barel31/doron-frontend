@@ -15,7 +15,9 @@ export const imageVariants = {
   }),
 };
 
-export const imageTransition = {
+import { type Transition } from 'motion';
+
+export const imageTransition: Transition = {
   x: { type: 'spring', stiffness: 200, damping: 50 },
   opacity: { duration: 0.4 },
 };
